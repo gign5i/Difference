@@ -9,18 +9,30 @@ const parse = (fileData, fileType) => {
     case 'json':
       return JSON.parse(fileData);
     default:
-      return 'Other type of file';
+      return 'Not today!';
   }
 };
 
 const getData = (filePath) => parse(fs.readFileSync(filePath, 'utf-8'), getTypeFile(filePath));
 
 const buildFullPath = (curPath) => path.resolve(process.cwd(), curPath);
+
+const getSorted = (values) => {
+  return values.sort((a, b) => {
+      if (a.slice(2, 3) < b.slice(2, 3)) {
+        return -1;
+      }
+      if (a.slice(2, 3) > b.slice(2, 3)) {
+        return 1;
+      }
+      return 0;
+    });
+};
 //--------------------------------------
 
 const getDiff = (fstFileData, scndFileData) => {
-  const result = [];
   const keys = [..._.keys(fstFileData), ..._.keys(scndFileData)];
+  const result = [];
   _.uniq(keys).map((key) => {
     if (_.has(fstFileData, key) && _.has(scndFileData, key)) {
       if (fstFileData[key] === scndFileData[key]) {
@@ -38,15 +50,7 @@ const getDiff = (fstFileData, scndFileData) => {
       result.push(`+ ${key}: ${scndFileData[key]}`);
     }
   });
-  const sortedResult = result.sort((a, b) => {
-    if (a.slice(2, 3) < b.slice(2, 3)) {
-      return -1;
-    }
-    if (a.slice(2, 3) > b.slice(2, 3)) {
-      return 1;
-    }
-    return 0;
-  });
+  const sortedResult = getSorted(result);
   return `{\n${sortedResult.join('\n')}\n}`;
 };
 
