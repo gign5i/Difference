@@ -19,10 +19,10 @@ const buildFullPath = (curPath) => path.resolve(process.cwd(), curPath);
 
 const getSorted = (values) => {
   return values.sort((a, b) => {
-      if (a.slice(2, 3) < b.slice(2, 3)) {
+      if (a.slice(3, 4) < b.slice(3, 4)) {
         return -1;
       }
-      if (a.slice(2, 3) > b.slice(2, 3)) {
+      if (a.slice(3, 4) > b.slice(3, 4)) {
         return 1;
       }
       return 0;
@@ -36,21 +36,22 @@ const getDiff = (fstFileData, scndFileData) => {
   _.uniq(keys).map((key) => {
     if (_.has(fstFileData, key) && _.has(scndFileData, key)) {
       if (fstFileData[key] === scndFileData[key]) {
-        result.push(`  ${key}: ${fstFileData[key]}`);
+        result.push(`   ${key}: ${fstFileData[key]}`);
       }
       if (fstFileData[key] !== scndFileData[key]) {
-        result.push(`- ${key}: ${fstFileData[key]}`);
-        result.push(`+ ${key}: ${scndFileData[key]}`);
+        result.push(` - ${key}: ${fstFileData[key]}`);
+        result.push(` + ${key}: ${scndFileData[key]}`);
       }
     }
     if (_.has(fstFileData, key) && !_.has(scndFileData, key)) {
-      result.push(`- ${key}: ${fstFileData[key]}`);
+      result.push(` - ${key}: ${fstFileData[key]}`);
     }
     if (!_.has(fstFileData, key) && _.has(scndFileData, key)) {
-      result.push(`+ ${key}: ${scndFileData[key]}`);
+      result.push(` + ${key}: ${scndFileData[key]}`);
     }
   });
   const sortedResult = getSorted(result);
+  console.log(sortedResult);
   return `{\n${sortedResult.join('\n')}\n}`;
 };
 
