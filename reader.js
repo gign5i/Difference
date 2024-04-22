@@ -18,27 +18,24 @@ const getData = (filePath) => parse(fs.readFileSync(filePath, 'utf-8'), getTypeF
 const buildFullPath = (curPath) => path.resolve(process.cwd(), curPath);
 //--------------------------------------
 
-const func = (object1, object2) => {
-  const newObject1 = _.cloneDeep(object1);
-  const newObject2 = _.cloneDeep(object2);
+const getDiff = (fstFileData, scndFileData) => {
   const result = [];
-  const keys = [..._.keys(newObject1), ..._.keys(newObject2)];
-
+  const keys = [..._.keys(fstFileData), ..._.keys(scndFileData)];
   _.uniq(keys).map((key) => {
-    if (_.has(newObject1, key) && _.has(newObject2, key)) {
-      if (newObject1[key] === newObject2[key]) {
-        result.push(`  ${key}: ${newObject1[key]}`);
+    if (_.has(fstFileData, key) && _.has(scndFileData, key)) {
+      if (fstFileData[key] === scndFileData[key]) {
+        result.push(`  ${key}: ${fstFileData[key]}`);
       }
-      if (newObject1[key] !== newObject2[key]) {
-        result.push(`- ${key}: ${newObject1[key]}`);
-        result.push(`+ ${key}: ${newObject2[key]}`);
+      if (fstFileData[key] !== scndFileData[key]) {
+        result.push(`- ${key}: ${fstFileData[key]}`);
+        result.push(`+ ${key}: ${scndFileData[key]}`);
       }
     }
-    if (_.has(newObject1, key) && !_.has(newObject2, key)) {
-      result.push(`- ${key}: ${newObject1[key]}`);
+    if (_.has(fstFileData, key) && !_.has(scndFileData, key)) {
+      result.push(`- ${key}: ${fstFileData[key]}`);
     }
-    if (!_.has(newObject1, key) && _.has(newObject2, key)) {
-      result.push(`+ ${key}: ${newObject2[key]}`);
+    if (!_.has(fstFileData, key) && _.has(scndFileData, key)) {
+      result.push(`+ ${key}: ${scndFileData[key]}`);
     }
   });
   const sortedResult = result.sort((a, b) => {
@@ -50,7 +47,6 @@ const func = (object1, object2) => {
     }
     return 0;
   });
-
   return `{\n${sortedResult.join('\n')}\n}`;
 };
 
@@ -65,7 +61,10 @@ const reader = (path1, path2) => {
 
   const [firstFileData, secondFileData] = data;
 
-  return func(firstFileData, secondFileData);
+  const forstFileDataClone = _.cloneDeep(firstFileData);
+  const secondFileDataClone = _.cloneDeep(secondFileData);
+
+  return getDiff(forstFileDataClone, secondFileDataClone);
 };
 export default reader;
 
