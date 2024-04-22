@@ -9,7 +9,7 @@ program
   .argument('<firstFilePath>')
   .argument('<secondFilePath>')
   .action((firstFilePath, secondFilePath) => {
-    const [firstFileData, secondFileData] = genDiff(firstFilePath, secondFilePath);
-    console.log(firstFileData, secondFileData);
+    const result = genDiff(firstFilePath, secondFilePath);
+    console.log(result);
   });
 program.parse();
