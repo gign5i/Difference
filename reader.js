@@ -19,14 +19,14 @@ const buildFullPath = (curPath) => path.resolve(process.cwd(), curPath);
 
 const getSorted = (values) => {
   return values.sort((a, b) => {
-      if (a.slice(3, 4) < b.slice(3, 4)) {
-        return -1;
-      }
-      if (a.slice(3, 4) > b.slice(3, 4)) {
-        return 1;
-      }
-      return 0;
-    });
+    if (a.slice(3, 4) < b.slice(3, 4)) {
+      return -1;
+    }
+    if (a.slice(3, 4) > b.slice(3, 4)) {
+      return 1;
+    }
+    return 0;
+  });
 };
 //--------------------------------------
 

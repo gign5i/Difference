@@ -8,7 +8,8 @@ const expectResult = '{\n - follow: false\n   host: hexlet.io\n - proxy: 123.234
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
+console.log(getFixturePath('file1.json'), typeof getFixturePath('file1.json'));
 
-test('first jest test', ()=>{
+test('first jest test', () => {
   expect(reader(getFixturePath('file1.json'), getFixturePath('file2.json'))).toEqual(expectResult);
 });
