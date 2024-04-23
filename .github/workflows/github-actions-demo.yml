@@ -5,5 +5,5 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: make lint
-      - run: make test
+      - run: npx eslint .
+      - run: NODE_OPTIONS=--experimental-vm-modules npx jest
