@@ -1,8 +1,11 @@
 name: auto tests 5-th step
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+on: 
+  - push
 jobs:
-  Explore-GitHub-Actions:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - run: make test
+        - run: make install
+        - run: make lint
+        - run: make test
