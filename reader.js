@@ -51,7 +51,7 @@ const getDiff = (fstFileData, scndFileData) => {
     }
   });
   const sortedResult = getSorted(result);
-  console.log(sortedResult);
+  // console.log(`{\n${sortedResult.join('\n')}\n}`); //вывод при тестах для самопроверки
   return `{\n${sortedResult.join('\n')}\n}`;
 };
 
@@ -59,8 +59,11 @@ const getDiff = (fstFileData, scndFileData) => {
 const reader = (path1, path2) => {
 
   const paths = [path1, path2];
+  // console.log(`Gotten paths:\n${paths[0]}\n${paths[1]}`); //вывод при тестах для самопроверки
 
   const absPaths = paths.map((path) => buildFullPath(path));
+
+  // console.log(`Absolute paths:\n${absPaths[0]}\n${absPaths[1]}`); //вывод при тестах для самопроверки
 
   const data = absPaths.map((path) => getData(path));
 
