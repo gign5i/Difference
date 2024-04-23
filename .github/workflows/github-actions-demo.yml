@@ -5,4 +5,4 @@ jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - run: NODE_OPTIONS=--experimental-vm-modules npx jest
+      - run: make test
