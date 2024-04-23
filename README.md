@@ -3,5 +3,8 @@
 
 <a href="https://codeclimate.com/github/gign5i/frontend-project-46/maintainability"><img src="https://api.codeclimate.com/v1/badges/f18ae74f5763c98f0dbe/maintainability" /></a>
 
+![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+
+
 asciinema (4-th step):
 https://asciinema.org/a/hGRFrlNTehe22arG4x3LDnHT3
