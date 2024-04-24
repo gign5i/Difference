@@ -33,8 +33,10 @@ const getSorted = (values) => {
 const getUniqKeys = (dataA, dataB) => _.uniq([..._.keys(dataA), ..._.keys(dataB)]);
 
 const getResult = (keys, dataA, dataB) => {
+
   const result = keys.flatMap((key) => {
     const diffArr = [];
+
     if (_.has(dataA, key) && _.has(dataB, key)) {
       if (dataA[key] === dataB[key]) {
         diffArr.push(`   ${key}: ${dataA[key]}`);
