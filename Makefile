@@ -4,8 +4,8 @@ install:
 gindiff:
 	node bin/gindiff.js
 
-make lint:
+lint:
 	npx eslint .
 
-make test:
+test:
 	NODE_OPTIONS=--experimental-vm-modules npx jest

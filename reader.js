@@ -27,28 +27,31 @@ const getSorted = (values) => {
     }
     return 0;
   });
+  return values;
 };
 //--------------------------------------
 
 const getDiff = (fstFileData, scndFileData) => {
   const keys = [..._.keys(fstFileData), ..._.keys(scndFileData)];
-  const result = [];
-  _.uniq(keys).map((key) => {
+  const keysS = _.uniq(keys);
+  const result = keysS.flatMap((key) => {
+    const diffArr = [];
     if (_.has(fstFileData, key) && _.has(scndFileData, key)) {
       if (fstFileData[key] === scndFileData[key]) {
-        result.push(`   ${key}: ${fstFileData[key]}`);
+        diffArr.push(`   ${key}: ${fstFileData[key]}`);
       }
       if (fstFileData[key] !== scndFileData[key]) {
-        result.push(` - ${key}: ${fstFileData[key]}`);
-        result.push(` + ${key}: ${scndFileData[key]}`);
+        diffArr.push(` - ${key}: ${fstFileData[key]}`);
+        diffArr.push(` + ${key}: ${scndFileData[key]}`);
       }
     }
     if (_.has(fstFileData, key) && !_.has(scndFileData, key)) {
-      result.push(` - ${key}: ${fstFileData[key]}`);
+      diffArr.push(` - ${key}: ${fstFileData[key]}`);
     }
     if (!_.has(fstFileData, key) && _.has(scndFileData, key)) {
-      result.push(` + ${key}: ${scndFileData[key]}`);
+      diffArr.push(` + ${key}: ${scndFileData[key]}`);
     }
+    return diffArr;
   });
   const sortedResult = getSorted(result);
 
