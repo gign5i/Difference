@@ -29,12 +29,13 @@ const getSorted = (values) => {
   });
   return values;
 };
+
+const getUniqKeys = (dataA, dataB) => _.uniq([..._.keys(dataA), ..._.keys(dataB)]);
 //--------------------------------------
 
 const getDiff = (fstFileData, scndFileData) => {
-  const keys = [..._.keys(fstFileData), ..._.keys(scndFileData)];
-  const keysS = _.uniq(keys);
-  const result = keysS.flatMap((key) => {
+  const uniqKeys = getUniqKeys(fstFileData, scndFileData);
+  const result = uniqKeys.flatMap((key) => {
     const diffArr = [];
     if (_.has(fstFileData, key) && _.has(scndFileData, key)) {
       if (fstFileData[key] === scndFileData[key]) {
