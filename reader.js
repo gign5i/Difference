@@ -18,7 +18,7 @@ const getData = (filePath) => parse(fs.readFileSync(filePath, 'utf-8'), getTypeF
 const buildFullPath = (curPath) => path.resolve(process.cwd(), curPath);
 
 const getSorted = (values) => {
-  return values.sort((a, b) => {
+  values.sort((a, b) => {
     if (a.slice(3, 4) < b.slice(3, 4)) {
       return -1;
     }
@@ -51,21 +51,17 @@ const getDiff = (fstFileData, scndFileData) => {
     }
   });
   const sortedResult = getSorted(result);
-  // console.log(`{\n${sortedResult.join('\n')}\n}`); //вывод при тестах для самопроверки
+
   return `{\n${sortedResult.join('\n')}\n}`;
 };
 
 //--------------------------------------
 const reader = (path1, path2) => {
-
   const paths = [path1, path2];
-  // console.log(`Gotten paths:\n${paths[0]}\n${paths[1]}`); //вывод при тестах для самопроверки
 
-  const absPaths = paths.map((path) => buildFullPath(path));
+  const absPaths = paths.map((filePath) => buildFullPath(filePath));
 
-  // console.log(`Absolute paths:\n${absPaths[0]}\n${absPaths[1]}`); //вывод при тестах для самопроверки
-
-  const data = absPaths.map((path) => getData(path));
+  const data = absPaths.map((absFilepath) => getData(absFilepath));
 
   const [firstFileData, secondFileData] = data;
 
