@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import genDiff from '../reader.js';
+import genDiff from '../src/reader.js';
 
 program
   .description('Compares two configuration files and shows a difference.')
@@ -10,6 +10,6 @@ program
   .argument('<secondFilePath>')
   .action((firstFilePath, secondFilePath) => {
     const result = genDiff(firstFilePath, secondFilePath);
-    console.log(result);
+    console.log('result:\n', result);
   });
 program.parse();
