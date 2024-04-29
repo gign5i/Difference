@@ -61,9 +61,7 @@ const getResult = (dataA, dataB) => {
           value: getResult(value1, value2), 
           status:'hasChild'
         };
-        
-        // console.log("buff:", buff2.value, typeof buff2.value);
-        
+
         acc.push({...buff2});
 
       } else if (value1 !== value2) {
@@ -87,54 +85,56 @@ const getResult = (dataA, dataB) => {
 };
 
 const stylish = (object) => {
-  let spaser = '  ';
-  // console.log(object);
+  let spacer = '  ';
+
   const arr = [];
   const iter = (node, depth) => {
 
   node.map((el, depth) => {
     switch (el.status) {
       case ' ':
-        arr.push(`${spaser}${el.status} ${el.name}: ${el.value}`);
+        arr.push(`${spacer}${el.status} ${el.name}: ${el.value}`);
         break;
       case '+':
-        arr.push(`${spaser}${el.status} ${el.name}: ${el.value}`);
+        arr.push(`${spacer}${el.status} ${el.name}: ${el.value}`);
         break;
       case '-':
-        arr.push(`${spaser}${el.status} ${el.name}: ${el.value}`);
+        arr.push(`${spacer}${el.status} ${el.name}: ${el.value}`);
         break;
-      case 'hasChild':
+        case 'hasChild':
         
-        console.log('rec:\n', depth,'\n', el.value);
-        arr.push(`${spaser}  ${el.name}: {\n${spaser.repeat(spaser.length * depth)}${iter(el.value, depth + 1)}`);
-        // arr.push(`${spaser}  ${el.name}:${spaser.repeat(spaser.length * depth)}${[...el.value]}`);
+        // console.log('rec:\n', depth,'\n', el.value);
+        const buff = [];
+        buff.push(stylish(el.value));
+        let newSpace = spacer.length * depth;
+        const anoter = `${spacer.repeat(newSpace)}${buff.flat().join(`\n${spacer.repeat(newSpace)}`)}`;
+        // console.log('aff:',anoter, typeof anoter);
+        arr.push(`${spacer}  ${el.name}: {\n${anoter}\n  ${spacer.repeat(newSpace)}}`);
 
-        
         break;
     }
+
   
   });
-  console.log(`{\n${arr.join('\n')}\n}`);
-  return arr;
- 
+  
 }
 
-  return iter(object, 0);
-  
+  iter(object, 0);
+  console.log('arr', arr);
+  return arr;
 };
 
 const getDiff = (fstFileData, scndFileData) => {
-
-
   const result = getResult(fstFileData, scndFileData);
   // console.log('result:\n', result);
   
   const sortedResult = getSorted(result);
-  console.log('sortedResult', ...sortedResult);
-  console.log('\n---------------------------------\n');
-  stylish(sortedResult);
+  // console.log('sortedResult\n', sortedResult);
+  // console.log('\n---------------------------------\n');
+  const a = [...stylish(sortedResult)];
 
-  // return `{\n${a.join('\n')}\n}`;
+  // console.log(`{\n${a.join('\n')}\n}`);
+  return `{\n${a.flat().join('\n')}\n}`;
 };
 
 export default getDiff;
