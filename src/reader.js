@@ -25,5 +25,5 @@ const reader = (path1, path2) => {
 };
 export default reader;
 
-// test: gendiff __fixtures__/file1.json __fixtures__/file2.json
+// test: gendiff __fixtures__/file1.yml __fixtures__/file2.yml
 // test2: gendiff ./__fixtures__/file1.json __fixtures__/file2.json
