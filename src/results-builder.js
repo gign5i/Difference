@@ -98,7 +98,7 @@ const stylish = (object) => {
         // const buff = [];
         const buff = iter(el.value, depth + 1);
         console.log('buff:', buff);
-        const currValue = `${`{\n${buff.flat().join('\n')}\n${spacer.repeat(depth + 2)}`}}`;
+        const currValue = `${`{\n${buff.flat().join('\n')}\n  ${spacer.repeat(depth)}`}}`;
         acc.push(`${spacer.repeat(depth)}  ${el.name}: ${currValue}`);
         // const firstPart = `${spacer.repeat(depth)}  ${el.name}:`;
         // const secondPart = `${iter(el.value, depth + 1)}`;
