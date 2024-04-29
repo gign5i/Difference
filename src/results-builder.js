@@ -83,45 +83,40 @@ const getResult = (dataA, dataB) => {
   
   return result;
 };
-
 const stylish = (object) => {
-  let spacer = '  ';
-
+  let spacer = '    ';
+  
   const arr = [];
   const iter = (node, depth) => {
+  console.log(depth);
 
-  node.map((el, depth) => {
+  const result = node.reduce((acc, el) => {
+  
     switch (el.status) {
-      case ' ':
-        arr.push(`${spacer}${el.status} ${el.name}: ${el.value}`);
+      case 'hasChild':
+        console.log('rec:\n', depth,'\n', el.value, typeof el.value);
+        // const buff = [];
+        const buff = iter(el.value, depth + 1);
+        console.log('buff:', buff);
+        const currValue = `${`{\n${buff.flat().join('\n')}\n${spacer.repeat(depth + 2)}`}}`;
+        acc.push(`${spacer.repeat(depth)}  ${el.name}: ${currValue}`);
+        // const firstPart = `${spacer.repeat(depth)}  ${el.name}:`;
+        // const secondPart = `${iter(el.value, depth + 1)}`;
+        // console.log('!!!!:\n', firstPart, secondPart);
         break;
-      case '+':
-        arr.push(`${spacer}${el.status} ${el.name}: ${el.value}`);
-        break;
-      case '-':
-        arr.push(`${spacer}${el.status} ${el.name}: ${el.value}`);
-        break;
-        case 'hasChild':
-        
-        // console.log('rec:\n', depth,'\n', el.value);
-        const buff = [];
-        buff.push(stylish(el.value));
-        let newSpace = spacer.length * depth;
-        const anoter = `${spacer.repeat(newSpace)}${buff.flat().join(`\n${spacer.repeat(newSpace)}`)}`;
-        // console.log('aff:',anoter, typeof anoter);
-        arr.push(`${spacer}  ${el.name}: {\n${anoter}\n  ${spacer.repeat(newSpace)}}`);
-
+      default:
+        acc.push(`${spacer.repeat(depth)}${el.status} ${el.name}: ${el.value}`);
         break;
     }
-
-  
-  });
+  return acc;
+  }, []);
+  return result;
   
 }
-
-  iter(object, 0);
-  console.log('arr', arr);
-  return arr;
+  
+  // iter(object, 1);
+  // console.log('arr', iter(object, 1));
+  return iter(object, 1);
 };
 
 const getDiff = (fstFileData, scndFileData) => {
@@ -129,7 +124,7 @@ const getDiff = (fstFileData, scndFileData) => {
   // console.log('result:\n', result);
   
   const sortedResult = getSorted(result);
-  // console.log('sortedResult\n', sortedResult);
+  console.log('sortedResult\n', ...sortedResult);
   // console.log('\n---------------------------------\n');
   const a = [...stylish(sortedResult)];
 
