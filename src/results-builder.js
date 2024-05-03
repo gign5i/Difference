@@ -1,135 +1,38 @@
 import _ from 'lodash';
-import { getSorted, getUniqKeys } from './helper.js';
+import { getSorted } from './helper.js';
+import stylish from './formater.js';
 
-// const getResult = (keys, dataA, dataB) => {
-//   const result = keys.flatMap((key) => {
-//     const diffArr = [];
+const getInfo = (dataA, dataB) => {
+  const keys1 = Object.keys(dataA);
+  const keys2 = Object.keys(dataB);
+  const keys = _.sortBy(_.union(keys1, keys2));
 
-//     if (_.has(dataA, key) && _.has(dataB, key)) {
-//       if (dataA[key] === dataB[key]) {
-//         diffArr.push(`   ${key}: ${dataA[key]}`);
-//       }
-//       if (dataA[key] !== dataB[key]) {
-//         diffArr.push(` - ${key}: ${dataA[key]}`);
-//         diffArr.push(` + ${key}: ${dataB[key]}`);
-//       }
-//     }
-//     if (_.has(dataA, key) && !_.has(dataB, key)) {
-//       diffArr.push(` - ${key}: ${dataA[key]}`);
-//     }
-//     if (!_.has(dataA, key) && _.has(dataB, key)) {
-//       diffArr.push(` + ${key}: ${dataB[key]}`);
-//     }
-//     return diffArr;
-//   });
-//   return result;
-// };
+  // N - nested | D - deleted | A - added | C - changed | U - unchanged
 
-// const getDiff = (fstFileData, scndFileData) => {
-//   const uniqKeys = getUniqKeys(fstFileData, scndFileData);
-
-//   const result = getResult(uniqKeys, fstFileData, scndFileData);
-//   const sortedResult = getSorted(result);
-
-//   return `{\n${sortedResult.join('\n')}\n}`;
-// };
-
-
-
-const getResult = (dataA, dataB) => {
-
-  const uniqKeys = getUniqKeys(dataA, dataB);
-  
-  const result = uniqKeys.reduce((acc, key)=>{
-    
-    const [value1, value2]= [dataA[key], dataB[key]];
-    
-    if (_.has(dataA, key) && _.has(dataB, key)) {
-      if (value1 === value2) {
-        const buff1 = {
-          name: key, 
-          value: value1, 
-          status:' '
-        };
-
-          acc.push(buff1);
-
-      } else if (_.isObject(value1) && _.isObject(value2)) {
-        
-        const buff2 = {
-          name: key, 
-          value: getResult(value1, value2), 
-          status:'hasChild'
-        };
-
-        acc.push({...buff2});
-
-      } else if (value1 !== value2) {
-        acc.push({name: key, value: value1, status:'-'});
-        acc.push({name: key, value: value2, status:'+'});
-      } 
+  return keys.map((key) => {
+    if (_.isPlainObject(dataA[key]) && _.isPlainObject(dataB[key])) {
+      return { name: key, type: 'N', value: getInfo(dataA[key], dataB[key]) };
     }
-    if (_.has(dataA, key) && !_.has(dataB, key)) { 
-      
-      acc.push({name: key, value: value1, status:'-'});
+    if (!Object.hasOwn(dataB, key)) {
+      return { name: key, type: 'D', value: dataA[key] };
     }
-    if (!_.has(dataA, key) && _.has(dataB, key)) {
-
-      acc.push({name: key, value: value2, status:'+'});
+    if (!Object.hasOwn(dataA, key)) {
+      return { name: key, type: 'A', value: dataB[key] };
     }
-
-    return acc;
-  }, []);
-  
-  return result;
-};
-const stylish = (object) => {
-  let spacer = '    ';
-  
-  const arr = [];
-  const iter = (node, depth) => {
-  console.log(depth);
-
-  const result = node.reduce((acc, el) => {
-  
-    switch (el.status) {
-      case 'hasChild':
-        console.log('rec:\n', depth,'\n', el.value, typeof el.value);
-        // const buff = [];
-        const buff = iter(el.value, depth + 1);
-        console.log('buff:', buff);
-        const currValue = `${`{\n${buff.flat().join('\n')}\n  ${spacer.repeat(depth)}`}}`;
-        acc.push(`${spacer.repeat(depth)}  ${el.name}: ${currValue}`);
-        // const firstPart = `${spacer.repeat(depth)}  ${el.name}:`;
-        // const secondPart = `${iter(el.value, depth + 1)}`;
-        // console.log('!!!!:\n', firstPart, secondPart);
-        break;
-      default:
-        acc.push(`${spacer.repeat(depth)}${el.status} ${el.name}: ${el.value}`);
-        break;
+    if (dataA[key] !== dataB[key]) {
+      return {
+        name: key, type: 'C', value1: dataA[key], value2: dataB[key],
+      };
     }
-  return acc;
-  }, []);
-  return result;
-  
-}
-  
-  // iter(object, 1);
-  // console.log('arr', iter(object, 1));
-  return iter(object, 1);
+    return { name: key, type: 'U', value: dataA[key] };
+  });
 };
 
 const getDiff = (fstFileData, scndFileData) => {
-  const result = getResult(fstFileData, scndFileData);
-  // console.log('result:\n', result);
-  
-  const sortedResult = getSorted(result);
-  console.log('sortedResult\n', ...sortedResult);
-  // console.log('\n---------------------------------\n');
-  const a = [...stylish(sortedResult)];
-
-  // console.log(`{\n${a.join('\n')}\n}`);
-  return `{\n${a.flat().join('\n')}\n}`;
+  const currentInfo = getInfo(fstFileData, scndFileData);
+  const sortedResult = getSorted(currentInfo);
+  const result = stylish(sortedResult);
+  return `{\n${result.flat().join('\n')}\n}`;
 };
 
 export default getDiff;

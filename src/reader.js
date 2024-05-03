@@ -1,11 +1,8 @@
 import * as fs from 'fs';
-import path from 'path';
 import _ from 'lodash';
 import parse from './parser.js';
 import getDiff from './results-builder.js';
-import pathBuilder from './path-builder.js';
-
-const getTypeFile = (filePath) => path.extname(filePath).slice(1);
+import { pathBuilder, getTypeFile } from './helper.js';
 
 const getData = (filePath) => parse(fs.readFileSync(filePath, 'utf-8'), getTypeFile(filePath));
 
@@ -23,6 +20,7 @@ const reader = (path1, path2) => {
 
   return getDiff(forstFileDataClone, secondFileDataClone);
 };
+
 export default reader;
 
 // test: gendiff __fixtures__/file1.yml __fixtures__/file2.yml
