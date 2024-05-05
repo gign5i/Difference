@@ -7,3 +7,9 @@
 
 asciinema (4-th step):
 https://asciinema.org/a/hGRFrlNTehe22arG4x3LDnHT3
+
+asciinema (6-th step):
+https://asciinema.org/a/IZS9CqHLIWI3pChHtQX0hRekH
+
+asciinema (8-th step):
+https://asciinema.org/a/QdXzSMqG9TVZ3hXiv1YkKTZEM
