@@ -10,15 +10,15 @@ program
   .argument('<secondFilePath>')
   .action((firstFilePath, secondFilePath) => {
     const options = program.opts();
-    const formatName = options.format === 'plain' ? 'plain': 'stylish';
+    const formatName = options.format === 'plain' ? 'plain' : 'stylish';
 
     const diff = genDiff(firstFilePath, secondFilePath, formatName);
     console.log(diff);
   });
 program.parse();
 
-//asciinema rec demo.cast
-//asciinema upload demo.cast
+// asciinema rec demo.cast
+// asciinema upload demo.cast
 // test: gendiff __fixtures__/file1.yml __fixtures__/file2.yml
 // test2: gendiff -f plain ./__fixtures__/file1.json __fixtures__/file2.json
 // test3: gendiff -f stylush ./__fixtures__/file1.json __fixtures__/file2.json

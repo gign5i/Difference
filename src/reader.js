@@ -21,4 +21,3 @@ const reader = (path1, path2, format) => {
 };
 
 export default reader;
-
