@@ -38,6 +38,7 @@ export default (object) => {
           break;
         default:
           if (el.name === undefined || el.value === undefined) {
+            /* eslint-disable-next-line */
             for (const [key, value] of Object.entries(el)) {
               if (_.isPlainObject(value)) {
                 fixedValue = styleHelper(iter([value], depth + 1));

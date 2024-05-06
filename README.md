@@ -12,4 +12,4 @@ asciinema (6-th step):
 https://asciinema.org/a/IZS9CqHLIWI3pChHtQX0hRekH
 
 asciinema (8-th step):
-https://asciinema.org/a/QdXzSMqG9TVZ3hXiv1YkKTZEM
+https://asciinema.org/a/ZncC8pykHICaKBG1jlikAnQp3
