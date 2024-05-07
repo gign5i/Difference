@@ -1,5 +1,14 @@
 import _ from 'lodash';
 
+const helper = (value) => {
+  if (typeof value === 'string') {
+    return `'${value}'`; 
+  } else if (_.isObject(value)) {
+    return '[complex value]';
+  }
+  return value;
+};
+
 export default (object) => {
   const iter = (node, depth) => {
     const result = node.reduce((acc, el) => {
@@ -17,26 +26,10 @@ export default (object) => {
           }
           break;
         case 'changed':
-          if (_.isObject(el.value1)) {
-            acc.push(`Property '${el.name}' was updated. From [complex value] to '${el.value2}'`);
-          } else {
-            if (typeof el.value1 === 'string' && typeof el.value2 === 'string') {
-              acc.push(`Property '${el.name}' was updated. From '${el.value1}' to '${el.value2}'`);
-              break;
-            }
-            acc.push(`Property '${el.name}' was updated. From ${el.value1} to ${el.value2}`);
-          }
+          acc.push(`Property '${el.name}' was updated. From ${helper(el.value1)} to ${helper(el.value2)}`);
           break;
         case 'added':
-          if (_.isObject(el.value)) {
-            acc.push(`Property '${el.name}' was added with value: [complex value]`);
-          } else {
-            if (typeof el.value === 'string') {
-              acc.push(`Property '${el.name}' was added with value: '${el.value}'`);
-              break;
-            }
-            acc.push(`Property '${el.name}' was added with value: ${el.value}`);
-          }
+          acc.push(`Property '${el.name}' was added with value: ${helper(el.value)}`);
           break;
         case 'deleted':
           acc.push(`Property '${el.name}' was removed`);
