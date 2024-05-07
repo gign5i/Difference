@@ -23,10 +23,10 @@
     -h, --help           display help for command
   ```
 - Для запуска необходимо вводить следующую команду:
-  `gendiff -f <format> <filepath1> <filepath2>`
+  `gendiff [options] <filepath1> <filepath2>`
 
-  `<format>` может иметь следующие допустимые значения:
-  - `stylish`:
+  `[options]` может иметь следующие допустимые значения:
+  - `-f stylish`:
   ```
   >gendiff -f stylish <filepath-1> <filepath-2>
 
@@ -39,7 +39,7 @@
     + verbose: true
   }
   ```
-  - `plain`:
+  - `-f plain`:
   ```
   >gendiff -f plain <filepath-1> <filepath-2>
 
@@ -48,7 +48,7 @@
   Property 'timeout' was updated. From 50 to 20
   Property 'verbose' was added with value: true
   ```
-  - `json`:
+  - `-f json`:
   ```
   >gendiff -f json <filepath-1> <filepath-2>
   or
