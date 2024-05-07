@@ -4,7 +4,7 @@ export default (object) => {
   const iter = (node, depth) => {
     const result = node.reduce((acc, el) => {
       switch (el.type) {
-        case 'N':
+        case 'nested':
           if (_.isObject(el.value)) {
             el.value.map((subEl) => {
               const subResult = iter([subEl], depth + 1);
@@ -16,7 +16,7 @@ export default (object) => {
             });
           }
           break;
-        case 'C':
+        case 'changed':
           if (_.isObject(el.value1)) {
             acc.push(`Property '${el.name}' was updated. From [complex value] to '${el.value2}'`);
           } else {
@@ -27,7 +27,7 @@ export default (object) => {
             acc.push(`Property '${el.name}' was updated. From ${el.value1} to ${el.value2}`);
           }
           break;
-        case 'A':
+        case 'added':
           if (_.isObject(el.value)) {
             acc.push(`Property '${el.name}' was added with value: [complex value]`);
           } else {
@@ -38,7 +38,7 @@ export default (object) => {
             acc.push(`Property '${el.name}' was added with value: ${el.value}`);
           }
           break;
-        case 'D':
+        case 'deleted':
           acc.push(`Property '${el.name}' was removed`);
           break;
         default:

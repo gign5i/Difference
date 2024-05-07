@@ -10,13 +10,13 @@ const reader = (path1, path2, format) => {
   const paths = [path1, path2];
 
   const absPaths = paths.map((filePath) => pathBuilder(filePath));
-
   const data = absPaths.map((absFilepath) => getData(absFilepath));
 
   const [firstFileData, secondFileData] = data;
 
   const forstFileDataClone = _.cloneDeep(firstFileData);
   const secondFileDataClone = _.cloneDeep(secondFileData);
+
   return getDiff(forstFileDataClone, secondFileDataClone, format);
 };
 

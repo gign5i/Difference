@@ -3,10 +3,10 @@ import _ from 'lodash';
 const styleHelper = (values) => `\n${values.flat().join('\n')}`;
 
 const getSign = (elType) => {
-  if (elType === 'A') {
+  if (elType === 'added') {
     return '+';
   }
-  if (elType === 'D') {
+  if (elType === 'deleted') {
     return '-';
   }
   return ' ';
@@ -22,11 +22,11 @@ export default (object) => {
       const sign = getSign(el.type);
       let fixedValue = '';
       switch (el.type) {
-        case 'N':
+        case 'nested':
           fixedValue = styleHelper(iter(el.value, depth + 1));
           acc.push(`${getIndent(depth)}  ${el.name}: {${fixedValue}\n  ${getIndent(depth)}}`);
           break;
-        case 'C':
+        case 'changed':
           if (!_.isPlainObject(el.value1)) {
             acc.push(`${getIndent(depth)}- ${el.name}: ${el.value1}`);
             acc.push(`${getIndent(depth)}+ ${el.name}: ${el.value2}`);
