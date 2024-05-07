@@ -21,12 +21,12 @@
   >gendiff -f stylish <filepath-1> <filepath-2>
 
   {
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
+    - follow: false
+      host: hexlet.io
+    - proxy: 123.234.53.22
+    - timeout: 50
+    + timeout: 20
+    + verbose: true
   }
   ```
   - `plain`:
@@ -49,27 +49,27 @@
     "type": "deleted",
     "value": false
   },
-  {
-    "name": "host",
-    "type": "unchanged",
-    "value": "hexlet.io"
-  },
-  {
-    "name": "proxy",
-    "type": "deleted",
-    "value": "123.234.53.22"
-  },
-  {
-    "name": "timeout",
-    "type": "changed",
-    "value1": 50,
-    "value2": 20
-  },
-  {
-    "name": "verbose",
-    "type": "added",
-    "value": true
-  }
+    {
+      "name": "host",
+      "type": "unchanged",
+      "value": "hexlet.io"
+    },
+    {
+      "name": "proxy",
+      "type": "deleted",
+      "value": "123.234.53.22"
+    },
+    {
+      "name": "timeout",
+      "type": "changed",
+      "value1": 50,
+      "value2": 20
+    },
+    {
+      "name": "verbose",
+      "type": "added",
+      "value": true
+    }
   ]
   ```
   - Если не указать формат вывода, то по умолчанию результат будет выводиться в формате `JSON`.
