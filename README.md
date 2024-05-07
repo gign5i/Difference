@@ -44,11 +44,11 @@
   or
   >>gendiff <filepath-1> <filepath-2>
   [
-  {
-    "name": "follow",
-    "type": "deleted",
-    "value": false
-  },
+    {
+      "name": "follow",
+      "type": "deleted",
+      "value": false
+    },
     {
       "name": "host",
       "type": "unchanged",
