@@ -40,7 +40,8 @@
   - `json`:
   ```
   >gendiff -f json <filepath-1> <filepath-2>
-
+  or
+  >>gendiff <filepath-1> <filepath-2>
   [
   {
     "name": "follow",
