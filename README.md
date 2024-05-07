@@ -11,24 +11,35 @@
 
 Запуск:
 - Можно ознакомиться с описанием, указав следующую команду:
-  `gendiff -h`
+  `gendiff -h`:
+  ```
+  Usage: gendiff [options] <firstFilePath> <secondFilePath>
+
+  Compares two configuration files and shows a difference.
+
+  Options:
+    -V, --version        output the version number
+    -f, --format [type]  output format (default: "JSON")
+    -h, --help           display help for command
+  ```
 - Для запуска необходимо вводить следующую команду:
-  `gendiff -f <format> <filepath-1> <filepath-2>`
-  `<format>` может иметь следующие допустимые значения:
-  - `stylish`:
+  `gendiff [options] <filepath1> <filepath2>`
+
+  `[options]` может иметь следующие допустимые значения:
+  - `-f stylish`:
   ```
   >gendiff -f stylish <filepath-1> <filepath-2>
 
   {
-  - follow: false
-    host: hexlet.io
-  - proxy: 123.234.53.22
-  - timeout: 50
-  + timeout: 20
-  + verbose: true
+    - follow: false
+      host: hexlet.io
+    - proxy: 123.234.53.22
+    - timeout: 50
+    + timeout: 20
+    + verbose: true
   }
   ```
-  - `plain`:
+  - `-f plain`:
   ```
   >gendiff -f plain <filepath-1> <filepath-2>
 
@@ -37,38 +48,39 @@
   Property 'timeout' was updated. From 50 to 20
   Property 'verbose' was added with value: true
   ```
-  - `json`:
+  - `-f json`:
   ```
   >gendiff -f json <filepath-1> <filepath-2>
-
+  or
+  >>gendiff <filepath-1> <filepath-2>
   [
-  {
-    "name": "follow",
-    "type": "deleted",
-    "value": false
-  },
-  {
-    "name": "host",
-    "type": "unchanged",
-    "value": "hexlet.io"
-  },
-  {
-    "name": "proxy",
-    "type": "deleted",
-    "value": "123.234.53.22"
-  },
-  {
-    "name": "timeout",
-    "type": "changed",
-    "value1": 50,
-    "value2": 20
-  },
-  {
-    "name": "verbose",
-    "type": "added",
-    "value": true
-  }
-]
+    {
+      "name": "follow",
+      "type": "deleted",
+      "value": false
+    },
+    {
+      "name": "host",
+      "type": "unchanged",
+      "value": "hexlet.io"
+    },
+    {
+      "name": "proxy",
+      "type": "deleted",
+      "value": "123.234.53.22"
+    },
+    {
+      "name": "timeout",
+      "type": "changed",
+      "value1": 50,
+      "value2": 20
+    },
+    {
+      "name": "verbose",
+      "type": "added",
+      "value": true
+    }
+  ]
   ```
   - Если не указать формат вывода, то по умолчанию результат будет выводиться в формате `JSON`.
 
