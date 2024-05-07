@@ -13,12 +13,12 @@
 - Можно ознакомиться с описанием, указав следующую команду:
   `gendiff -h`
 - Для запуска необходимо вводить следующую команду:
-  `gendiff -f <format> <filepath-1> <filepath-2>`
+  `gendiff -f <format> <filepath1> <filepath2>`
 
   `<format>` может иметь следующие допустимые значения:
   - `stylish`:
   ```
-  >gendiff -f stylish <filepath1> <filepath2>
+  >gendiff -f stylish <filepath-1> <filepath-2>
 
   {
   - follow: false
