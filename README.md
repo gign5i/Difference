@@ -18,7 +18,7 @@
   `<format>` может иметь следующие допустимые значения:
   - `stylish`:
   ```
-  >gendiff -f stylish <filepath-1> <filepath-2>
+  >gendiff -f stylish <filepath1> <filepath2>
 
   {
   - follow: false
