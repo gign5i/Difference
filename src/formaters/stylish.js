@@ -34,7 +34,12 @@ export default (object) => {
             fixedValue = styleHelper(iter([el.value1], depth + 1));
             acc.push(`${getIndent(depth)}- ${el.name}: {${fixedValue}\n  ${getIndent(depth)}}`);
           }
-          acc.push(`${getIndent(depth)}+ ${el.name}: ${el.value2}`);
+          if (!_.isPlainObject(el.value2)) {
+            acc.push(`${getIndent(depth)}+ ${el.name}: ${el.value2}`);
+          } else if (_.isPlainObject(el.value2)) {
+            fixedValue = styleHelper(iter([el.value2], depth + 1));
+            acc.push(`${getIndent(depth)}+ ${el.name}: {${fixedValue}\n  ${getIndent(depth)}}`);
+          }
           break;
         default:
           if (el.name === undefined || el.value === undefined) {
