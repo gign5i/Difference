@@ -2,8 +2,9 @@ import _ from 'lodash';
 
 const helper = (value) => {
   if (typeof value === 'string') {
-    return `'${value}'`; 
-  } else if (_.isObject(value)) {
+    return `'${value}'`;
+  }
+  if (_.isObject(value)) {
     return '[complex value]';
   }
   return value;

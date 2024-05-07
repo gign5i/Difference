@@ -12,13 +12,14 @@ const getSign = (elType) => {
   return ' ';
 };
 
-export default (object) => {
-  const spacer = '    ';
-  const replacer = ' ';
+const spacer = '    ';
+const replacer = ' ';
 
+const getIndent = (curDepth) => replacer.repeat(curDepth * spacer.length).slice(0, -2);
+
+export default (object) => {
   const iter = (node, depth) => {
     const result = node.reduce((acc, el) => {
-      const getIndent = (curDepth) => replacer.repeat(curDepth * spacer.length).slice(0, -2);
       const sign = getSign(el.type);
       let fixedValue = '';
       switch (el.type) {
@@ -28,13 +29,12 @@ export default (object) => {
           break;
         case 'changed':
           if (!_.isPlainObject(el.value1)) {
-            acc.push(`${getIndent(depth)}- ${el.name}: ${el.value1}`);
-            acc.push(`${getIndent(depth)}+ ${el.name}: ${el.value2}`);
+            acc.push(`${getIndent(depth)}- ${el.name}: ${el.value1}`);    
           } else if (_.isPlainObject(el.value1)) {
             fixedValue = styleHelper(iter([el.value1], depth + 1));
             acc.push(`${getIndent(depth)}- ${el.name}: {${fixedValue}\n  ${getIndent(depth)}}`);
-            acc.push(`${getIndent(depth)}+ ${el.name}: ${el.value2}`);
           }
+          acc.push(`${getIndent(depth)}+ ${el.name}: ${el.value2}`);
           break;
         default:
           if (el.name === undefined || el.value === undefined) {
