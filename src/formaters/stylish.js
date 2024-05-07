@@ -29,7 +29,7 @@ export default (object) => {
           break;
         case 'changed':
           if (!_.isPlainObject(el.value1)) {
-            acc.push(`${getIndent(depth)}- ${el.name}: ${el.value1}`);    
+            acc.push(`${getIndent(depth)}- ${el.name}: ${el.value1}`);
           } else if (_.isPlainObject(el.value1)) {
             fixedValue = styleHelper(iter([el.value1], depth + 1));
             acc.push(`${getIndent(depth)}- ${el.name}: {${fixedValue}\n  ${getIndent(depth)}}`);
