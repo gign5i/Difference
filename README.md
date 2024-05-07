@@ -11,7 +11,17 @@
 
 Запуск:
 - Можно ознакомиться с описанием, указав следующую команду:
-  `gendiff -h`
+  `gendiff -h`:
+  ```
+  Usage: gendiff [options] <firstFilePath> <secondFilePath>
+
+  Compares two configuration files and shows a difference.
+
+  Options:
+    -V, --version        output the version number
+    -f, --format [type]  output format (default: "JSON")
+    -h, --help           display help for command
+  ```
 - Для запуска необходимо вводить следующую команду:
   `gendiff -f <format> <filepath1> <filepath2>`
 
