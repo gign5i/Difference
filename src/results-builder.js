@@ -26,7 +26,7 @@ const getDiffInfo = (firstData, seconData) => {
   });
 };
 
-const getDiff = (fstFileData, scndFileData, format) => {
+const getDiff = (fstFileData, scndFileData, format = 'stylish') => {
   const currentInfo = getDiffInfo(fstFileData, scndFileData);
   const sortedResult = getSorted(currentInfo);
   return formater(sortedResult, format);
