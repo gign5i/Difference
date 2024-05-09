@@ -23,3 +23,13 @@ test('Second test for big data (JSON, format: stylish)', () => {
   const testData2 = syncReadFile('./__fixtures__/Stylish-format.txt');
   expect(reader(getFixturePath('file1.json'), getFixturePath('file2.json'), 'stylish')).toEqual(testData2);
 });
+
+test('Second test for big data (JSON, format: plain)', () => {
+  const testData3 = syncReadFile('./__fixtures__/Plain-format.txt');
+  expect(reader(getFixturePath('file1.json'), getFixturePath('file2.json'), 'plain')).toEqual(testData3);
+});
+
+test('Second test for big data (JSON, format: json)', () => {
+  const testData4 = syncReadFile('./__fixtures__/JSON-format.txt');
+  expect(reader(getFixturePath('file1.json'), getFixturePath('file2.json'), 'json')).toEqual(testData4);
+});
