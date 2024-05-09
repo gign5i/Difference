@@ -24,9 +24,9 @@ export default (object) => {
       if (el.type === 'nested') {
         acc.push(`${getIndent(depth)}  ${el.name}: {${helper(iter(el.value, depth + 1))}\n  ${getIndent(depth)}}`);
       } else if (el.type === 'changed') {
-        const func = (value) => (!_.isPlainObject(value) ? value : `{${helper(iter([value], depth + 1))}\n  ${getIndent(depth)}}`);
-        acc.push(`${getIndent(depth)}- ${el.name}: ${func(el.value1)}`);
-        acc.push(`${getIndent(depth)}+ ${el.name}: ${func(el.value2)}`);
+        const checker = (value) => (!_.isPlainObject(value) ? value : `{${helper(iter([value], depth + 1))}\n  ${getIndent(depth)}}`);
+        acc.push(`${getIndent(depth)}- ${el.name}: ${checker(el.value1)}`);
+        acc.push(`${getIndent(depth)}+ ${el.name}: ${checker(el.value2)}`);
       } else if (el.name === undefined || el.value === undefined) {
         /* eslint-disable-next-line */
         for (const [key, value] of Object.entries(el)) {
