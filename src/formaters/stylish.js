@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const styleHelper = (values) => `\n${values.flat().join('\n')}`;
+const helper = (values) => `\n${values.flat().join('\n')}`;
 
 const getSign = (elType) => {
   if (elType === 'added') {
@@ -21,24 +21,20 @@ export default (object) => {
   const iter = (node, depth) => {
     const result = node.reduce((acc, el) => {
       const sign = getSign(el.type);
-      let fixedValue = '';
       switch (el.type) {
         case 'nested':
-          fixedValue = styleHelper(iter(el.value, depth + 1));
-          acc.push(`${getIndent(depth)}  ${el.name}: {${fixedValue}\n  ${getIndent(depth)}}`);
+          acc.push(`${getIndent(depth)}  ${el.name}: {${helper(iter(el.value, depth + 1))}\n  ${getIndent(depth)}}`);
           break;
         case 'changed':
           if (!_.isPlainObject(el.value1)) {
             acc.push(`${getIndent(depth)}- ${el.name}: ${el.value1}`);
           } else if (_.isPlainObject(el.value1)) {
-            fixedValue = styleHelper(iter([el.value1], depth + 1));
-            acc.push(`${getIndent(depth)}- ${el.name}: {${fixedValue}\n  ${getIndent(depth)}}`);
+            acc.push(`${getIndent(depth)}- ${el.name}: {${helper(iter([el.value1], depth + 1))}\n  ${getIndent(depth)}}`);
           }
           if (!_.isPlainObject(el.value2)) {
             acc.push(`${getIndent(depth)}+ ${el.name}: ${el.value2}`);
           } else if (_.isPlainObject(el.value2)) {
-            fixedValue = styleHelper(iter([el.value2], depth + 1));
-            acc.push(`${getIndent(depth)}+ ${el.name}: {${fixedValue}\n  ${getIndent(depth)}}`);
+            acc.push(`${getIndent(depth)}+ ${el.name}: {${helper(iter([el.value2], depth + 1))}\n  ${getIndent(depth)}}`);
           }
           break;
         default:
@@ -46,8 +42,7 @@ export default (object) => {
             /* eslint-disable-next-line */
             for (const [key, value] of Object.entries(el)) {
               if (_.isPlainObject(value)) {
-                fixedValue = styleHelper(iter([value], depth + 1));
-                acc.push(`${getIndent(depth)}  ${key}: {${fixedValue}\n  ${getIndent(depth)}}`);
+                acc.push(`${getIndent(depth)}  ${key}: {${helper(iter([value], depth + 1))}\n  ${getIndent(depth)}}`);
               } else {
                 acc.push(`${getIndent(depth)}  ${key}: ${value}`);
               }
@@ -55,8 +50,7 @@ export default (object) => {
           } else if (!_.isPlainObject(el.value)) {
             acc.push(`${getIndent(depth)}${sign} ${el.name}: ${el.value}`);
           } else {
-            fixedValue = styleHelper(iter([el.value], depth + 1));
-            acc.push(`${getIndent(depth)}${sign} ${el.name}: {${fixedValue}\n  ${getIndent(depth)}}`);
+            acc.push(`${getIndent(depth)}${sign} ${el.name}: {${helper(iter([el.value], depth + 1))}\n  ${getIndent(depth)}}`);
           }
           break;
       }
