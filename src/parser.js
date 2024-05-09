@@ -11,6 +11,6 @@ export default (fileData, fileType) => {
       return JSON.parse(toJson);
     }
     default:
-      return 'Not today!';
+      throw Error(`Format ${fileformat} is not supported!`);
   }
 };
