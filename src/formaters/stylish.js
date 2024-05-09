@@ -24,10 +24,9 @@ export default (object) => {
       if (el.type === 'nested') {
         acc.push(`${getIndent(depth)}  ${el.name}: {${helper(iter(el.value, depth + 1))}\n  ${getIndent(depth)}}`);
       } else if (el.type === 'changed') {
-        const result1 = !_.isPlainObject(el.value1) ? el.value1 : `{${helper(iter([el.value1], depth + 1))}\n  ${getIndent(depth)}}`;
-        const result2 = !_.isPlainObject(el.value2) ? el.value2 : `{${helper(iter([el.value2], depth + 1))}\n  ${getIndent(depth)}}`;
-        acc.push(`${getIndent(depth)}- ${el.name}: ${result1}`);
-        acc.push(`${getIndent(depth)}+ ${el.name}: ${result2}`);
+        const func = (value) => (!_.isPlainObject(value) ? value : `{${helper(iter([value], depth + 1))}\n  ${getIndent(depth)}}`);
+        acc.push(`${getIndent(depth)}- ${el.name}: ${func(el.value1)}`);
+        acc.push(`${getIndent(depth)}+ ${el.name}: ${func(el.value2)}`);
       } else if (el.name === undefined || el.value === undefined) {
         /* eslint-disable-next-line */
         for (const [key, value] of Object.entries(el)) {
