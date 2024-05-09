@@ -5,10 +5,9 @@ import formater from './formaters/index.js';
 const getDiffInfo = (dataA, dataB) => {
   const keys1 = Object.keys(dataA);
   const keys2 = Object.keys(dataB);
-  const unionKeys = _.union(keys1, keys2);
-  const keys = _.sortBy(unionKeys);
+  const keys = _.sortBy(_.union(keys1, keys2));
 
-  const diffInfo = keys.map((key) => {
+  return keys.map((key) => {
     if (_.isPlainObject(dataA[key]) && _.isPlainObject(dataB[key])) {
       return { name: key, type: 'nested', value: getDiffInfo(dataA[key], dataB[key]) };
     }
@@ -25,7 +24,6 @@ const getDiffInfo = (dataA, dataB) => {
     }
     return { name: key, type: 'unchanged', value: dataA[key] };
   });
-  return diffInfo;
 };
 
 const getDiff = (fstFileData, scndFileData, format) => {
