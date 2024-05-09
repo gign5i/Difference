@@ -15,7 +15,7 @@ const __dirname = dirname(__filename);
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
 
 test('First test for small data (YAML/yml, format: stylish)', () => {
-  const testData1 = syncReadFile('./__fixtures__/Stylish-format-small.txt');
+  const testData1 = syncReadFile('./__fixtures__/Stylish-format.txt');
   expect(reader(getFixturePath('file1.yml'), getFixturePath('file2.yml'), 'stylish')).toEqual(testData1);
 });
 

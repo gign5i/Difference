@@ -6,18 +6,18 @@ const formatSelector = (format) => {
   switch (format) {
     case 'plain':
       return 'plain';
-    case 'stylish':
-      return 'stylish';
     case 'json':
-    default:
       return 'json';
+    case 'stylish':
+    default:
+      return 'stylish';
   }
 };
 
 program
   .description('Compares two configuration files and shows a difference.')
   .version('0.1')
-  .option('-f, --format [type]', 'output format (default: "JSON")')
+  .option('-f, --format [type]', 'output format (default: "Stylish")')
   .argument('<firstFilePath>')
   .argument('<secondFilePath>')
   .action((firstFilePath, secondFilePath) => {
