@@ -6,7 +6,6 @@ const pathBuilder = (filePath) => path.resolve(process.cwd(), filePath);
 const getTypeFile = (filePath) => path.extname(filePath).slice(1);
 
 const getSorted = (values) => {
-  // console.log('values:', values);
   const iter = (node, depth) => {
     const [buff] = [...node];
     if (_.isObject(buff.value)) {

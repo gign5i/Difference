@@ -10,30 +10,29 @@ const helper = (value) => {
   return value;
 };
 
+const getProperty = (node, propertyPath) => {
+  if (propertyPath !== '') {
+    return `${propertyPath}.${node.name}`;
+  }
+  return `${node.name}`;
+};
+
 export default (object) => {
-  const iter = (node, depth) => {
-    const result = node.reduce((acc, el) => {
-      if (el.type === 'nested') {
-        if (_.isObject(el.value)) {
-          el.value.flatMap((subEl) => {
-            const subResult = iter([subEl], depth + 1);
-            const arrResults = subResult.split('\n');
-            if (subResult !== '') {
-              arrResults.map((element) => acc.push(`Property '${`${el.name}.${element.slice(10)}`}`));
-            }
-            return subEl;
-          });
-        }
-      } else if (el.type === 'changed') {
-        acc.push(`Property '${el.name}' was updated. From ${helper(el.value1)} to ${helper(el.value2)}`);
-      } else if (el.type === 'added') {
-        acc.push(`Property '${el.name}' was added with value: ${helper(el.value)}`);
-      } else if (el.type === 'deleted') {
-        acc.push(`Property '${el.name}' was removed`);
-      }
-      return acc;
-    }, []);
-    return result.join('\n');
-  };
-  return iter(object, 1);
+  const iter = (node, depth) => node.filter((el) => el.type !== 'unchanged').map((el) => {
+    const propertyPath = getProperty(el, depth);
+    if (el.type === 'nested') {
+      return iter(el.value, propertyPath);
+    }
+    if (el.type === 'changed') {
+      return `Property '${propertyPath}' was updated. From ${helper(el.value1)} to ${helper(el.value2)}`;
+    }
+    if (el.type === 'added') {
+      return `Property '${propertyPath}' was added with value: ${helper(el.value)}`;
+    }
+    if (el.type === 'deleted') {
+      return `Property '${propertyPath}' was removed`;
+    }
+    return null;
+  }).join('\n');
+  return iter(object, '');
 };

@@ -22,6 +22,7 @@ export default (object) => {
     const checker = (value) => (!_.isPlainObject(value) ? value : `{${helper(iter([value], depth + 1))}\n  ${getIndent(depth)}}`);
     return node.flatMap((el) => {
       const sign = getSign(el.type);
+      const subResults = [];
       if (el.type === 'nested') {
         return `${getIndent(depth)}  ${el.name}: {${helper(iter(el.value, depth + 1))}\n  ${getIndent(depth)}}`;
       }
@@ -29,12 +30,11 @@ export default (object) => {
         return `${getIndent(depth)}- ${el.name}: ${checker(el.value1)}\n${getIndent(depth)}+ ${el.name}: ${checker(el.value2)}`;
       }
       if (el.name === undefined || el.value === undefined) {
-        const arr = [];
         /* eslint-disable-next-line */
         for (const [key, value] of Object.entries(el)) {
-          arr[arr.length] = `${getIndent(depth)}  ${key}: ${checker(value)}`;
+          subResults[subResults.length] = `${getIndent(depth)}  ${key}: ${checker(value)}`;
         }
-        return arr;
+        return subResults;
       }
       return `${getIndent(depth)}${sign} ${el.name}: ${checker(el.value)}`;
     });

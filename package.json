@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "[![Actions Status](https://github.com/gign5i/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/gign5i/frontend-project-46/actions)",
-  "main": "src/reader.js",
+  "main": "src/files-reader.js",
   "scripts": {
     "test": "npx jest"
   },

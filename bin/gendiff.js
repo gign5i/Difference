@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { program } from 'commander';
-import genDiff from '../src/reader.js';
+import genDiff from '../src/files-reader.js';
 
 const formatSelector = (format) => {
   switch (format) {
