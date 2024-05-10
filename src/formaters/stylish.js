@@ -24,18 +24,19 @@ export default (object) => {
       const sign = getSign(el.type);
       if (el.type === 'nested') {
         return `${getIndent(depth)}  ${el.name}: {${helper(iter(el.value, depth + 1))}\n  ${getIndent(depth)}}`;
-      } else if (el.type === 'changed') {
+      }
+      if (el.type === 'changed') {
         return `${getIndent(depth)}- ${el.name}: ${checker(el.value1)}\n${getIndent(depth)}+ ${el.name}: ${checker(el.value2)}`;
-      } else if (el.name === undefined || el.value === undefined) {
-        /* eslint-disable-next-line */
+      }
+      if (el.name === undefined || el.value === undefined) {
         const arr = [];
+        /* eslint-disable-next-line */
         for (const [key, value] of Object.entries(el)) {
-            arr[arr.length] = `${getIndent(depth)}  ${key}: ${checker(value)}`;
+          arr[arr.length] = `${getIndent(depth)}  ${key}: ${checker(value)}`;
         }
         return arr;
-      } else {
-        return `${getIndent(depth)}${sign} ${el.name}: ${checker(el.value)}`;
       }
+      return `${getIndent(depth)}${sign} ${el.name}: ${checker(el.value)}`;
     });
   };
   return iter(object, 1);
