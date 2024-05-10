@@ -29,6 +29,7 @@ const getDiffInfo = (firstData, seconData) => {
 const getDiff = (fstFileData, scndFileData, format = 'stylish') => {
   const currentInfo = getDiffInfo(fstFileData, scndFileData);
   const sortedResult = getSorted(currentInfo);
+  console.log(sortedResult);
   return formater(sortedResult, format);
 };
 
