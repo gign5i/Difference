@@ -12,8 +12,3 @@ program
     console.log(genDiff(firstFilePath, secondFilePath, program.opts().format));
   });
 program.parse();
-
-// test: gendiff __fixtures__/file1.yml __fixtures__/file2.yml
-// test2: gendiff -f plain ./__fixtures__/file1.json __fixtures__/file2.json
-// test3: gendiff -f stylish ./__fixtures__/file1.json __fixtures__/file2.json
-// test4: gendiff -f json ./__fixtures__/file1.json __fixtures__/file2.json
