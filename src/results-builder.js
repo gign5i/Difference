@@ -1,6 +1,4 @@
 import _ from 'lodash';
-import { getSorted } from './helper.js';
-import formater from './formaters/index.js';
 
 const getDiffInfo = (firstData, seconData) => {
   const keys1 = Object.keys(firstData);
@@ -26,10 +24,4 @@ const getDiffInfo = (firstData, seconData) => {
   });
 };
 
-const getDiff = (fstFileData, scndFileData, format = 'stylish') => {
-  const currentInfo = getDiffInfo(fstFileData, scndFileData);
-  const sortedResult = getSorted(currentInfo);
-  return formater(sortedResult, format);
-};
-
-export default getDiff;
+export default getDiffInfo;

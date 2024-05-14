@@ -2,18 +2,6 @@
 import { program } from 'commander';
 import genDiff from '../src/files-reader.js';
 
-const formatSelector = (format) => {
-  switch (format) {
-    case 'plain':
-      return 'plain';
-    case 'json':
-      return 'json';
-    case 'stylish':
-    default:
-      return 'stylish';
-  }
-};
-
 program
   .description('Compares two configuration files and shows a difference.')
   .version('0.1')
@@ -21,10 +9,7 @@ program
   .argument('<firstFilePath>')
   .argument('<secondFilePath>')
   .action((firstFilePath, secondFilePath) => {
-    const options = program.opts();
-    const formatName = formatSelector(options.format);
-    const diff = genDiff(firstFilePath, secondFilePath, formatName);
-    console.log(diff);
+    console.log(genDiff(firstFilePath, secondFilePath, program.opts().format));
   });
 program.parse();
 

@@ -22,7 +22,6 @@ export default (object) => {
     const checker = (value) => (!_.isPlainObject(value) ? value : `{${helper(iter([value], depth + 1))}\n  ${getIndent(depth)}}`);
     return node.flatMap((el) => {
       const sign = getSign(el.type);
-      // const subResults = [];
       if (el.type === 'nested') {
         return `${getIndent(depth)}  ${el.name}: {${helper(iter(el.value, depth + 1))}\n  ${getIndent(depth)}}`;
       }
