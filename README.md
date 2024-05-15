@@ -19,7 +19,7 @@
 
   Options:
     -V, --version        output the version number
-    -f, --format [type]  output format (default: "JSON")
+    -f, --format [type]  output format (default: "Stylish")
     -h, --help           display help for command
   ```
 - Для запуска необходимо вводить следующую команду:
@@ -29,7 +29,8 @@
   - `-f stylish`:
   ```
   >gendiff -f stylish <filepath-1> <filepath-2>
-
+  or
+  >>gendiff <filepath-1> <filepath-2>
   {
     - follow: false
       host: hexlet.io
@@ -51,8 +52,6 @@
   - `-f json`:
   ```
   >gendiff -f json <filepath-1> <filepath-2>
-  or
-  >>gendiff <filepath-1> <filepath-2>
   [
     {
       "name": "follow",
@@ -82,7 +81,7 @@
     }
   ]
   ```
-  - Если не указать формат вывода, то по умолчанию результат будет выводиться в формате `JSON`.
+  - Если не указать формат вывода, то по умолчанию результат будет выводиться в формате `stylish`.
 
 asciinema (4-th step):
 https://asciinema.org/a/hGRFrlNTehe22arG4x3LDnHT3
