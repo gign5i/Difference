@@ -28,9 +28,14 @@
   `[options]` может иметь следующие допустимые значения:
   - `-f stylish`:
   ```
-  >gendiff -f stylish <filepath-1> <filepath-2>
-  or
-  >>gendiff <filepath-1> <filepath-2>
+  gendiff -f stylish <filepath-1> <filepath-2>
+  ```
+  или
+  ```
+  gendiff <filepath-1> <filepath-2>
+  ```
+  Вывод:
+  ```
   {
     - follow: false
       host: hexlet.io
@@ -42,8 +47,10 @@
   ```
   - `-f plain`:
   ```
-  >gendiff -f plain <filepath-1> <filepath-2>
-
+  gendiff -f plain <filepath-1> <filepath-2>
+  ```
+  Вывод:
+  ```
   Property 'follow' was removed
   Property 'proxy' was removed
   Property 'timeout' was updated. From 50 to 20
@@ -51,7 +58,10 @@
   ```
   - `-f json`:
   ```
-  >gendiff -f json <filepath-1> <filepath-2>
+  gendiff -f json <filepath-1> <filepath-2>
+  ```
+  Вывод:
+  ```
   [
     {
       "name": "follow",
